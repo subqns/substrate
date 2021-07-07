@@ -24,7 +24,7 @@ use sc_service::PartialComponents;
 use crate::service::new_partial;
 
 impl SubstrateCli for Cli {
-	fn impl_name() -> String {
+	fn impl_name(&self) -> String {
 		"Substrate Node".into()
 	}
 

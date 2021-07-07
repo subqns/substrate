@@ -301,7 +301,7 @@ impl CliConfiguration for RunCmd {
 		let name: String = match (self.name.as_ref(), self.get_keyring()) {
 			(Some(name), _) => name.to_string(),
 			(_, Some(keyring)) => keyring.to_string(),
-			(None, None) => crate::generate_node_name(),
+			(None, None) => "Substrate Node".into(), // crate::generate_node_name(),
 		};
 
 		is_node_name_valid(&name).map_err(|msg| {

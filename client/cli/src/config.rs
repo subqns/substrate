@@ -492,7 +492,7 @@ pub trait CliConfiguration<DCV: DefaultConfigurationValues = ()>: Sized {
 			.unwrap_or_else(|| BasePath::from_project("", "", &C::executable_name()));
 		let config_dir = base_path.config_dir(chain_spec.id());
 		let net_config_dir = config_dir.join(DEFAULT_NETWORK_CONFIG_PATH);
-		let client_id = C::client_id();
+		let client_id = cli.client_id();
 		let database_cache_size = self.database_cache_size()?.unwrap_or(128);
 		let database = self.database()?.unwrap_or(Database::RocksDb);
 		let node_key = self.node_key(&net_config_dir)?;
@@ -508,7 +508,7 @@ pub trait CliConfiguration<DCV: DefaultConfigurationValues = ()>: Sized {
 			.unwrap_or(false);
 
 		Ok(Configuration {
-			impl_name: C::impl_name(),
+			impl_name: cli.impl_name(),
 			impl_version: C::impl_version(),
 			task_executor,
 			transaction_pool: self.transaction_pool()?,

@@ -160,7 +160,7 @@ impl<C: SubstrateCli> Runner<C> {
 	/// 2020-06-03 16:14:21 ⛓  Native runtime: node-251 (substrate-node-1.tx1.au10)
 	/// ```
 	fn print_node_infos(&self) {
-		info!("{}", C::impl_name());
+		info!("{}", self.config.impl_name);
 		info!("✌️  version {}", C::impl_version());
 		info!(
 			"❤️  by {}, {}-{}",

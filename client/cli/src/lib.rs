@@ -56,7 +56,7 @@ use structopt::{
 /// its own implementation that will fill the necessary field based on the trait's functions.
 pub trait SubstrateCli: Sized {
 	/// Implementation name.
-	fn impl_name() -> String;
+	fn impl_name(&self) -> String;
 
 	/// Implementation version.
 	///
@@ -205,8 +205,8 @@ pub trait SubstrateCli: Sized {
 	}
 
 	/// Returns the client ID: `{impl_name}/v{impl_version}`
-	fn client_id() -> String {
-		format!("{}/v{}", Self::impl_name(), Self::impl_version())
+	fn client_id(&self) -> String {
+		format!("{}/v{}", self.impl_name(), Self::impl_version())
 	}
 
 	/// Only create a Configuration for the command provided in argument
