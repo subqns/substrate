@@ -267,6 +267,9 @@ pub mod pallet {
 		#[pallet::constant]
 		type SS58Prefix: Get<u16>;
 
+		#[pallet::constant]
+		type ExampleConstant: Get<u16>;
+
 		/// What to do if the user wants the code set to something. Just use `()` unless you are in
 		/// cumulus.
 		type OnSetCode: SetCode;
