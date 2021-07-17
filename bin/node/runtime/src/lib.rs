@@ -57,7 +57,7 @@ use sp_runtime::{
 use sp_runtime::curve::PiecewiseLinear;
 use sp_runtime::transaction_validity::{TransactionValidity, TransactionSource, TransactionPriority};
 use sp_runtime::traits::{
-	self, BlakeTwo256, Block as BlockT, StaticLookup, SaturatedConversion, ConvertInto, OpaqueKeys,
+	self, BlakeTwo256, Block as BlockT, StaticLookup, SaturatedConversion, OpaqueKeys,
 	NumberFor,
 };
 use sp_version::RuntimeVersion;
@@ -273,7 +273,6 @@ impl InstanceFilter<Call> for ProxyType {
 				Call::Balances(..) |
 				Call::Assets(..) |
 				Call::Uniques(..) |
-				Call::Vesting(pallet_vesting::Call::vested_transfer(..)) |
 				Call::Indices(pallet_indices::Call::transfer(..))
 			),
 			ProxyType::Governance => matches!(
@@ -965,18 +964,6 @@ impl pallet_society::Config for Runtime {
 	type ChallengePeriod = ChallengePeriod;
 }
 
-parameter_types! {
-	pub const MinVestedTransfer: Balance = 100 * DOLLARS;
-}
-
-impl pallet_vesting::Config for Runtime {
-	type Event = Event;
-	type Currency = Balances;
-	type BlockNumberToBalance = ConvertInto;
-	type MinVestedTransfer = MinVestedTransfer;
-	type WeightInfo = pallet_vesting::weights::SubstrateWeight<Runtime>;
-}
-
 impl pallet_mmr::Config for Runtime {
 	const INDEXING_PREFIX: &'static [u8] = b"mmr";
 	type Hashing = <Runtime as frame_system::Config>::Hashing;
@@ -1123,7 +1110,6 @@ construct_runtime!(
 		Identity: pallet_identity::{Pallet, Call, Storage, Event<T>},
 		Society: pallet_society::{Pallet, Call, Storage, Event<T>, Config<T>},
 		Recovery: pallet_recovery::{Pallet, Call, Storage, Event<T>},
-		Vesting: pallet_vesting::{Pallet, Call, Storage, Event<T>, Config<T>},
 		Proxy: pallet_proxy::{Pallet, Call, Storage, Event<T>},
 		Multisig: pallet_multisig::{Pallet, Call, Storage, Event<T>},
 		Bounties: pallet_bounties::{Pallet, Call, Storage, Event<T>},
@@ -1517,7 +1503,6 @@ impl_runtime_apis! {
 			add_benchmark!(params, batches, pallet_treasury, Treasury);
 			add_benchmark!(params, batches, pallet_uniques, Uniques);
 			add_benchmark!(params, batches, pallet_utility, Utility);
-			add_benchmark!(params, batches, pallet_vesting, Vesting);
 
 			if batches.is_empty() { return Err("Benchmark not found for this pallet.".into()) }
 			Ok((batches, storage_info))
