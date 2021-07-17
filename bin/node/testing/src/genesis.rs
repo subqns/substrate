@@ -106,7 +106,6 @@ pub fn config_endowed(
 		},
 		im_online: Default::default(),
 		authority_discovery: Default::default(),
-		democracy: Default::default(),
 		council: Default::default(),
 		technical_committee: Default::default(),
 		technical_membership: Default::default(),
