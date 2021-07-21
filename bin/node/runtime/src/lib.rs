@@ -1159,6 +1159,22 @@ impl pallet_uniques::Config for Runtime {
 	type WeightInfo = pallet_uniques::weights::SubstrateWeight<Runtime>;
 }
 
+parameter_types! {
+	pub const ReservationFee: u64 = 2;
+	pub const MinLength: u32 = 3;
+	pub const MaxLength: u32 = 16;
+}
+
+impl pallet_nicks::Config for Runtime {
+	type Event = Event;
+	type Currency = Balances;
+	type ReservationFee = ReservationFee;
+	type Slashed = Treasury;
+	type ForceOrigin = frame_system::EnsureRoot<AccountId>;
+	type MinLength = MinLength;
+	type MaxLength = MaxLength;
+}
+
 impl pallet_transaction_storage::Config for Runtime {
 	type Event = Event;
 	type Currency = Balances;
@@ -1202,6 +1218,7 @@ construct_runtime!(
 		Society: pallet_society::{Pallet, Call, Storage, Event<T>, Config<T>},
 		Recovery: pallet_recovery::{Pallet, Call, Storage, Event<T>},
 		Vesting: pallet_vesting::{Pallet, Call, Storage, Event<T>, Config<T>},
+		Nicks: pallet_nicks::{Pallet, Call, Storage, Event<T>},
 		Scheduler: pallet_scheduler::{Pallet, Call, Storage, Event<T>},
 		Proxy: pallet_proxy::{Pallet, Call, Storage, Event<T>},
 		Multisig: pallet_multisig::{Pallet, Call, Storage, Event<T>},
@@ -1597,6 +1614,7 @@ impl_runtime_apis! {
 			add_benchmark!(params, batches, pallet_transaction_storage, TransactionStorage);
 			add_benchmark!(params, batches, pallet_treasury, Treasury);
 			add_benchmark!(params, batches, pallet_uniques, Uniques);
+			add_benchmark!(params, batches, pallet_nicks, Nicks);
 			add_benchmark!(params, batches, pallet_utility, Utility);
 			add_benchmark!(params, batches, pallet_vesting, Vesting);
 

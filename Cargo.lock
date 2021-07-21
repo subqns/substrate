@@ -4389,6 +4389,7 @@ dependencies = [
  "pallet-membership",
  "pallet-mmr",
  "pallet-multisig",
+ "pallet-nicks",
  "pallet-offences",
  "pallet-offences-benchmarking",
  "pallet-proxy",
