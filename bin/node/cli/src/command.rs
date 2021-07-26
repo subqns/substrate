@@ -101,6 +101,7 @@ pub fn run() -> Result<()> {
 			},
 		Some(Subcommand::Key(cmd)) => cmd.run(&cli),
 		Some(Subcommand::Sign(cmd)) => cmd.run(),
+		Some(Subcommand::Echo(cmd)) => cmd.run(),
 		Some(Subcommand::Verify(cmd)) => cmd.run(),
 		Some(Subcommand::Vanity(cmd)) => cmd.run(),
 		Some(Subcommand::BuildSpec(cmd)) => {
