@@ -68,7 +68,7 @@
 //!   sizes.
 
 use crate::Error;
-pub use sp_core::MAX_POSSIBLE_ALLOCATION;
+pub const MAX_POSSIBLE_ALLOCATION: u32 = 33554432; // 2^25 bytes, 32 MiB
 use sp_wasm_interface::{Pointer, WordSize};
 use std::{
 	convert::{TryFrom, TryInto},
